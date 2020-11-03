@@ -8,6 +8,8 @@ using SportsStore.Domain.Entities;
 using Moq;
 using SportsStore.Domain.Concrete;
 using System.Configuration;
+using SportsStore.WebUI.Infrastructure.Concrete;
+using SportsStore.WebUI.Infrastructure.Abstract;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -37,6 +39,7 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind<IProductRepository>().To<EFProductRepository>();
             EmailSettings emailSettings = new EmailSettings { WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false") };
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("emailSettings", emailSettings);
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

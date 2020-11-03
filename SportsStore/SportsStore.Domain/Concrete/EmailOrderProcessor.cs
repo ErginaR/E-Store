@@ -48,8 +48,14 @@ namespace SportsStore.Domain.Concrete
                 }
 
                 StringBuilder body = new StringBuilder();
-                body.AppendLine("Porosia eshte bere submit");
-
+                body.AppendLine("Porosia eshte bere submit").AppendLine("-----------");
+                foreach(var line in cart.Lines)
+                {
+                    var subtotal = line.Product.Price * line.Quantity;
+                    body.AppendFormat("{0}*{1} = {2:c}", line.Quantity, line.Product.Name, subtotal);
+                }
+                body.AppendFormat("Totali:{0}", cart.ComputeTotalValue()).AppendLine("---------");
+                body.AppendLine("Ship to:{0}").AppendLine(shippingDetails.Name).AppendLine(shippingDetails.Line1).AppendLine(shippingDetails.Line2 ?? "").AppendLine(shippingDetails.Line3 ?? "").AppendLine(shippingDetails.City).AppendFormat("Gift wrap:{0}", shippingDetails.GiftWrap ? "Yes" : "No");
                 MailMessage mail = new MailMessage(emailSettings.MailFromAddress, emailSettings.MailToAddress, "Porosia", body.ToString());
                 if (emailSettings.WriteAsFile)
                     mail.BodyEncoding = Encoding.ASCII;

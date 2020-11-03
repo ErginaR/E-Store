@@ -7,18 +7,35 @@
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="~/Content/ErrorStyle.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
+    <style>
+        .navbar-right{
+            float:right!important;
+            margin-left:15px;
+            margin-right:15px;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse" role="navigation">
-        <a class="navbar-brand" href="#">Sports Store</a>
-        @Html.Action("Summary","Cart")
+        <a class="navbar-brand " href="#">
+            <span class="hidden-xs"> Sports Store</span>
+            <div class="visible-xs">Sports</div>
+            <div class="visible-xs">Store</div>
+        </a>
+        @Html.Action("Summary", "Cart")
     </div>
-    <div  class="row panel">
-        <div id="categories" class="col-xs-3">
+
+    <div id="categories" class="visible-xs">
+        @Html.Action("Menu", "Nav", new { horizontalLayout = true })
+    </div>
+
+    <div class="row panel">
+        <div id="categories" class="col-sm-3 hidden-xs">
             @Html.Action("Menu", "Nav")
         </div>
-        <div class="col-xs-8">
-           @RenderBody()
+
+        <div class="col-xs-12 col-sm-8">
+            @RenderBody()
         </div>
     </div>
 </body>

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<string>
+
+<div data-role="navbar">
+    <ul>
+    @foreach (var c in Model)
+    { <li>
+        @Html.RouteLink(c, new { controller = "Product", action = "List", category = c, page = 1 }, new {data_transition="fade", @class = (ViewBag.SelectedCategory == c ? "ui-btn-active" :null) })
+      </li>
+    }
+   <ul>
+</div>
